@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+sourceSets { 
+	main.java.srcDir '/src/main/java'
+}
+
+build.doLast {
+	println 'ChildA built!'
+}
+
+jar { 
+	from configurations.compile.collect { entry -> zipTree(entry) }
+}

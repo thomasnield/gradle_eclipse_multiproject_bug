@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'ParentLauncher'
+dependencies {
+	compile project(':..:ChildA')
+	compile project(':..:ChildB')
+}
+/*
+task recopySubs {
+	delete 'ChildA','ChildB'
+	copy {
+	   from "../ChildA"
+	   into "ChildA/"
+	}
+	copy {
+	   from "../ChildB"
+	   into "ChildB/"
+	}
+}
+
+clean.dependsOn recopySubs
+*/
+sourceSets { 
+	main.java.srcDir '/src/main/java'
+}
+
+jar { 
+	from configurations.compile.collect { entry -> zipTree(entry) }
+}
